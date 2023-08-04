@@ -19,9 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     vendorId: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
+    deletedAt: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Category',
+    paranoid: true, // Enables soft deletes
   });
   return Category;
 };
