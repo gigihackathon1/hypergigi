@@ -44,18 +44,19 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  // Store the user ID in the session
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    // Retrieve the user from the database based on the stored ID
-    const user = await User.findByPk(id); // Use the provided ID directly
-    done(null, user);
-  } catch (error) {
-    done(error);
-  }
+// Deserialize user from session
+passport.deserializeUser((id, done) => {
+  // Fetch user data by id and call done(null, user)
+  User.findByPk(id)
+    .then(user => {
+      done(null, user);
+    })
+    .catch(err => {
+      done(err, null);
+    });
 });
 
 module.exports = passport;

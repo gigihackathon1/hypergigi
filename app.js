@@ -6,12 +6,11 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors'); // Import CORS module
-const { User, Vendor } = require('./models'); // Adjust the paths as needed
+const { User } = require('./models'); // Adjust the paths as needed
 const passportConfig = require('./config/passport'); // Import your Passport configuration
 const jwt = require('jsonwebtoken'); // Import JWT module
 const usersRouter = require('./routes/users');
 const { jwtSecret } = require('./config/auth'); // Import your JWT secret
-
 
 const app = express();
 
@@ -34,6 +33,7 @@ app.use(
   })
 );
 
+// Initialize passport and session
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -47,6 +47,7 @@ app.get(
   (req, res) => {
     // Assuming the user is available in the request user object
     const user = req.user;
+    console.log(user);
 
     // Generate JWT token
     const accessToken = jwt.sign({ userId: user.id }, jwtSecret, {
@@ -70,8 +71,10 @@ app.get(
   }
 );
 
-app.use('/v1', usersRouter); // Mount the users router
+// Mount the users router
+app.use('/v1', usersRouter);
 
+// Handle 404 and error routes
 app.use(function(req, res, next) {
   next(createError(404));
 });
