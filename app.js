@@ -23,7 +23,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Enable CORS for all routes
-app.use(cors());
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(
   session({
