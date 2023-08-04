@@ -27,7 +27,7 @@ passport.use(
               email: profile.email,
               password: hashedPassword,
               googleId: profile.id,
-              googleLocation: profile._json.location // Access location from _json object
+              googleLocation: profile.location // Assuming 'location' is available in the profile
               // You can add more fields here as needed
             });
 
