@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('./config/auth'); // Import your JWT secret
-const { User } = require('./models'); // Adjust the path as needed
+const { jwtSecret } = require('../config/auth'); // Import your JWT secret
+const { User } = require('../models'); // Adjust the path as needed
 
 async function authenticateToken(req, res, next) {
   try {

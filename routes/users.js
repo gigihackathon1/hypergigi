@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('./authMiddleware'); // Import your authMiddleware
-const { User, Vendor, Category, Subcategory, Product } = require('./models'); // Import your models
+const authMiddleware = require('../middlewares/authenticator'); // Import your authMiddleware
+const { User, Vendor, Category, Subcategory, Product } = require('../models'); // Import your models
 const request = require('request'); // Import the request module
 
 router.post('/update/profile', authMiddleware, async (req, res, next) => {
@@ -42,7 +42,7 @@ router.post('/create/category', authMiddleware, async (req, res, next) => {
   }
 });
 
-router.post('/create/subCategory', authMiddleware, getCategoryId, async (req, res, next) => {
+router.post('/create/subCategory', authMiddleware, async (req, res, next) => {
   try {
     // Create a new subcategory entry using the fetched categoryId
     const newSubcategory = await Subcategory.create({
@@ -95,4 +95,3 @@ router.post('/create/product', authMiddleware, async (req, res, next) => {
 
 module.exports = router;
 
-module.exports = router;

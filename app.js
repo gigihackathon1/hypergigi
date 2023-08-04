@@ -9,7 +9,9 @@ const cors = require('cors'); // Import CORS module
 const { User, Vendor } = require('./models'); // Adjust the paths as needed
 const passportConfig = require('./config/passport'); // Import your Passport configuration
 const jwt = require('jsonwebtoken'); // Import JWT module
+const usersRouter = require('./routes/users');
 const { jwtSecret } = require('./config/auth'); // Import your JWT secret
+
 
 const app = express();
 
@@ -74,6 +76,8 @@ app.get(
     });
   }
 );
+
+app.use('/v1', usersRouter); // Mount the users router
 
 app.use(function(req, res, next) {
   next(createError(404));

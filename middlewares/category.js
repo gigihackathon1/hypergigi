@@ -1,4 +1,4 @@
-const { Category } = require('./models'); // Adjust the path as needed
+const { Category } = require('../models'); // Adjust the path as needed
 
 async function getCategoryData(req, res, next) {
   try {
