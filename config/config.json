@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Stylishstar123@",
-    "database": "landsandhomes",
-    "host": "127.0.0.1",
+    "username": "admin",
+    "password": "Qaz43210",
+    "database": "hypergg",
+    "host": "hypergg.czrkjn9iouoo.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {

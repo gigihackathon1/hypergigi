@@ -18,11 +18,11 @@ router.post('/send-otp', async (req, res) => {
       vendor_is_active: false,   // Set the active status as needed
     });
 
-    const user = await User.findOne({ where: { email: userEmail } });
+    const user = await User.findOne({ where: { email: email } });
     if(user && user.googleId){
       user.phoneNo = req.body.phoneNo;
       user.roleId = req.body.roleId;
-      user.vendorId = req.body.vendorId;
+      user.vendorId = newVendor.id;
       await user.save();
     }
     const accountSid = "AC963a3d5ff254bdbb4a967323c9e0e245";
@@ -41,7 +41,7 @@ router.post('/send-otp', async (req, res) => {
       to: req.body.phoneNo,
     });
 
-    res.status(200).json({ status:true,challenge:"OTP challenge fulfill",message: 'OTP sent successfully' });
+    res.status(200).json({ status:true,challenge:"OTP challenge",message: 'OTP sent successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
