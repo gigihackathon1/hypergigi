@@ -1,5 +1,5 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { googleAuth, jwtSecret } = require('./auth');
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
