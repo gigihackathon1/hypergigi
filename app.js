@@ -46,35 +46,41 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'em
 // Google OAuth2 callback route
 app.get(
   '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    // Assuming the user is available in the request user object
-    const user = req.user;
-    console.log(user,"user");
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/signin' }),
+  async (req, res) => {
+    try {
+      if (!req.user) {
+        throw new Error('User not available after authentication');
+      }
 
-    const generateAccessToken = (user) => {
-      return jwt.sign({ id: user.id, email: user.email }, 'your-secret-key', {
-        expiresIn: '1h', // Token will expire in 1 hour
-      });
-    };
-    
-    const generateRefreshToken = (user) => {
-      return jwt.sign({ id: user.id, email: user.email }, 'your-refresh-secret-key', {
-        expiresIn: '7d', // Refresh token will expire in 7 days
-      });
-    };
+      // Extract the user's email from the req.user object
+      const userEmail = req.user.email; // Update this to the correct field name
 
-    // Calculate expiration time
-    const expiresIn = new Date().getTime() + 15 * 60 * 1000; // 15 minutes from now
+      // Fetch user data based on the email
+      const user = await User.findOne({ where: { email: userEmail } });
 
-    res.json({
-      status: true,
-      accessToken: generateAccessToken(user),
-      refreshToken: generateRefreshToken(user),
-      expiresIn: expiresIn,
-    });
+      if (!user) {
+        // If user is not found, log the userEmail for debugging
+        console.log('User not found for email:', userEmail);
+        throw new Error('User not found');
+      }
+
+      // Redirect the user to the success URL after successful authentication
+      const successRedirectUrl = 'http://www.google.com'; // Replace with your desired success URL
+      res.redirect(successRedirectUrl);
+    } catch (error) {
+      console.error('Error in callback route:', error);
+
+      // Redirect the user to the failure URL if authentication fails
+      const failureRedirectUrl = '/login'; // Replace with your desired failure URL
+      res.redirect(failureRedirectUrl);
+    }
   }
 );
+
+
+
+
 
 // Mount the users router
 app.use('/v1', usersRouter);

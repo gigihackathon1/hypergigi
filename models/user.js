@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     phoneNo:{
       type: DataTypes.STRING,
-      allowNull: false,
     },
     email: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -25,9 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
     deletedAt: DataTypes.DATE,
+    isMobileVerified:{
+      type: DataTypes.STRING,
+    },
     googleId: DataTypes.STRING,
     user_description:DataTypes.STRING,
-    googleLocation: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'User',

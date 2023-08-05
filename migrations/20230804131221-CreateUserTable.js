@@ -20,7 +20,6 @@ module.exports = {
       },
       phoneNo:{
         type: Sequelize.STRING,
-        allowNull: false,
       },
       email:{
         type: Sequelize.STRING,
@@ -57,15 +56,14 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
+      isMobileVerified:{
+        type: Sequelize.STRING,
+      },
       googleId: {
         type: Sequelize.STRING,
         allowNull: true,
         unique: true,
-      },
-      googleLocation: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {
