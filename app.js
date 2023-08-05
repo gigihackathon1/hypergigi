@@ -23,7 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
+// app.use(cors());
+// Use cors middleware to allow requests from your frontend domain
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your frontend URL
+  credentials: true, // Enable cookies and other credentials in CORS requests
+}));
 
 app.use(
   session({
