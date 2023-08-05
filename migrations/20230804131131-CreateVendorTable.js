@@ -21,7 +21,6 @@ module.exports = {
       vendor_is_active: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: true, // Default value for vendor_is_active
       },
       vendor_description: {
         type: Sequelize.STRING,

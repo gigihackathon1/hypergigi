@@ -2,9 +2,6 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const { googleAuth, jwtSecret } = require('./auth');
 const { User } = require('../models');
-
-const moment = require('moment');
-const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
@@ -19,10 +16,12 @@ passport.use(
           user = await User.findOne({ where: { email: profile.email } });
 
           if (!user) {
-            const hashedPassword = await bcrypt.hash("password", saltRounds);
+            // Generate a random password for Google-authenticated users
+            const randomPassword = Math.random().toString(36).slice(-8);
+            const hashedPassword = await bcrypt.hash(randomPassword, saltRounds);
 
             user = await User.create({
-              uuid: uuidv4(),
+              uuid: profile.id, // Use profile.id as UUID for Google-authenticated users
               username: profile.given_name,
               email: profile.email,
               password: hashedPassword,
@@ -30,8 +29,6 @@ passport.use(
               googleLocation: profile.location // Assuming 'location' is available in the profile
               // You can add more fields here as needed
             });
-
-            return done(null, user);
           }
         }
 

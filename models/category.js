@@ -15,7 +15,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     uuid: DataTypes.UUID,
-    categoryName: DataTypes.STRING,
+    categoryName: {
+      type: DataTypes.STRING,
+    },
+    categoryOne: {
+      type: DataTypes.STRING,
+    },
+    categoryTwo: {
+      type: DataTypes.STRING,
+    },
+    categoryThree: {
+      type: DataTypes.STRING,
+    },
+    categoryFour: {
+      type: DataTypes.STRING,
+    },
+    categoryFive: {
+      type: DataTypes.STRING,
+    },
+    categorySix: {
+      type: DataTypes.STRING,
+    },
+    categorySeven: {
+      type: DataTypes.STRING
+    },
     vendorId: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,

@@ -17,7 +17,7 @@ const verifyToken = async (req, res, next) => {
     const user = await User.findOne({
       where: { id: decoded.id }
     });
-    console.log(user,"wjefdg")
+    // console.log(user,"wjefdg")
 
     if (!user) {
       return res.status(403).json({ status: false, message: 'User not found' });

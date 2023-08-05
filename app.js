@@ -37,6 +37,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
 // Google OAuth2 authentication route
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -47,25 +50,27 @@ app.get(
   (req, res) => {
     // Assuming the user is available in the request user object
     const user = req.user;
-    console.log(user);
+    console.log(user,"user");
 
-    // Generate JWT token
-    const accessToken = jwt.sign({ userId: user.id }, jwtSecret, {
-      expiresIn: '15m',
-    });
-
-    // Generate Refresh token
-    const refreshToken = jwt.sign({ userId: user.id }, jwtSecret, {
-      expiresIn: '7d',
-    });
+    const generateAccessToken = (user) => {
+      return jwt.sign({ id: user.id, email: user.email }, 'your-secret-key', {
+        expiresIn: '1h', // Token will expire in 1 hour
+      });
+    };
+    
+    const generateRefreshToken = (user) => {
+      return jwt.sign({ id: user.id, email: user.email }, 'your-refresh-secret-key', {
+        expiresIn: '7d', // Refresh token will expire in 7 days
+      });
+    };
 
     // Calculate expiration time
     const expiresIn = new Date().getTime() + 15 * 60 * 1000; // 15 minutes from now
 
     res.json({
       status: true,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
+      accessToken: generateAccessToken(user),
+      refreshToken: generateRefreshToken(user),
       expiresIn: expiresIn,
     });
   }

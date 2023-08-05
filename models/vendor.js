@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Vendor.init({
-    uuid: DataTypes.UUID,
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      unique: true,
+    },
     vendorName: DataTypes.STRING,
     vendor_is_active: DataTypes.BOOLEAN,
     vendor_description:DataTypes.STRING,
@@ -18,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Vendor',
-    paranoid: true, // Enables soft deletes
   });
   return Vendor;
 };

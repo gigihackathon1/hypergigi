@@ -17,6 +17,34 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      categoryOne: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categoryTwo: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categoryThree: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categoryFour: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categoryFive: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categorySix: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      categorySeven: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       vendorId: {
         type: Sequelize.INTEGER,
         references: {

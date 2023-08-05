@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Subcategories', {
+    await queryInterface.createTable('propertyFieldsTable', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,34 +12,23 @@ module.exports = {
       uuid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-      },
-      subcategoryName: {
-        type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Categories', // Make sure to adjust this to your Category table name
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      flatOrApartment:{
+      propertyFields: {
         type: Sequelize.STRING,
       },
-      builderFloor:{
+      prices: {
         type: Sequelize.STRING,
       },
-      pentHouse:{
+      places: {
         type: Sequelize.STRING,
       },
-      serviceApartment:{
+      area:{
         type: Sequelize.STRING,
       },
-      studioApartment:{
-        type: Sequelize.STRING,
+      negotiation: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -52,10 +41,19 @@ module.exports = {
       deletedAt: {
         type: Sequelize.DATE,
       },
+      vendorId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Vendors', // Make sure this matches the actual table name
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Subcategories');
+    await queryInterface.dropTable('propertyFieldsTable');
   },
 };
