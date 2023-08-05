@@ -23,13 +23,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(cors());
-// Use cors middleware to allow requests from your frontend domain
+// Allow requests from your frontend domain and enable credentials
 app.use(cors({
   origin: 'http://localhost:3000', // Replace with your frontend URL
   credentials: true, // Enable cookies and other credentials in CORS requests
 }));
 
+// Middleware to handle CORS preflight requests (OPTIONS method)
+app.options('*', cors());
 app.use(
   session({
     secret: 'YOUR_SESSION_SECRET', // Replace with your actual session secret
